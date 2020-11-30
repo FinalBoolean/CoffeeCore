@@ -38,15 +38,15 @@ public class CommandSigns extends Module {
 
         Player p = e.getPlayer();
         Profile profile = this.plugin.getProfileManager().getProfile(p);
-        if (profile.getCommandSignCooldown() < 5000) {
-            p.sendMessage(Messenger.PREFIX + "You must wait before using this Sign again");
-            return;
-        }
 
         Location block = e.getClickedBlock().getLocation();
 
         for (CommandSign sign : this.commandSigns) {
             if (sign.getLocation().equals(block)) {
+                if (profile.getCommandSignCooldown() < 2000) {
+                    p.sendMessage(Messenger.PREFIX + "You must wait before using this Sign again");
+                    break;
+                }
                 sign.execute(e.getPlayer());
                 profile.addCommandSignCooldown();
                 break;

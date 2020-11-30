@@ -57,7 +57,7 @@ public class CommandSignCommand extends SubCommand {
         for (int i = 2; i < args.length; i++) {
             commandBuilder.append(args[i]).append(" ");
         }
-        final String command = commandBuilder.toString().trim();
+        final String command = commandBuilder.toString().trim().replace("/", "");
 
         boolean console = Boolean.parseBoolean(args[1]);
 
