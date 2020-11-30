@@ -1,25 +1,19 @@
 package me.nik.coffeecore.utils.custom;
 
-import me.nik.coffeecore.CoffeeCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-public class ScaffoldAreaData {
+public class ScaffoldArea {
 
     private Location one, two;
 
-    public ScaffoldAreaData() {
+    public ScaffoldArea() {
     }
 
-    public ScaffoldAreaData(String str) {
+    public ScaffoldArea(String str) {
         if (str == null) return;
         String[] data = str.split(",");
         try {

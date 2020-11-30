@@ -56,7 +56,7 @@ public class ScaffoldCommand extends SubCommand {
 
         if (profile.isScaffoldMode()) {
             profile.setScaffoldMode(false);
-            profile.resetScaffoldAreaData();
+            profile.resetScaffoldArea();
             sender.sendMessage(Messenger.PREFIX + "You have cancelled the scaffold arena mode");
         } else {
             profile.setScaffoldMode(true);

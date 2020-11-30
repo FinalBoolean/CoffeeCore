@@ -6,7 +6,7 @@ import me.nik.coffeecore.managers.Config;
 import me.nik.coffeecore.managers.ProfileManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.NoHunger;
-import me.nik.coffeecore.modules.impl.ScaffoldArea;
+import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.tasks.AlwaysDay;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 
 public final class CoffeeCore extends JavaPlugin {
 
-    private static CoffeeCore instance;
-
     private Config config;
 
     private ProfileManager profileManager;
@@ -28,7 +26,6 @@ public final class CoffeeCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
 
         final Logger logger = this.getLogger();
         logger.info("Loading CoffeeCore, Made by Nik with <3");
@@ -65,7 +62,7 @@ public final class CoffeeCore extends JavaPlugin {
 
     private void initModules() {
 
-        this.modules.add(new ScaffoldArea(this));
+        this.modules.add(new ScaffoldAreas(this));
         this.modules.add(new NoHunger(this));
 
         this.modules.forEach(Module::init);
@@ -73,10 +70,6 @@ public final class CoffeeCore extends JavaPlugin {
 
     public ProfileManager getProfileManager() {
         return profileManager;
-    }
-
-    public static CoffeeCore getInstance() {
-        return instance;
     }
 
     @Override
@@ -89,7 +82,5 @@ public final class CoffeeCore extends JavaPlugin {
 
         HandlerList.unregisterAll(this);
         this.getServer().getScheduler().cancelTasks(this);
-
-        instance = null;
     }
 }
