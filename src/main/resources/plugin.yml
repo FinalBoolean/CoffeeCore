@@ -1,0 +1,15 @@
+name: CoffeeCore
+version: ${project.version}
+main: me.nik.coffeecore.CoffeeCore
+api-version: 1.13
+prefix: CoffeeCore
+authors: [Nik]
+description: Core plugin for the Coffee Lovers!
+website: https://discord.gg/m7j2Y9H
+commands:
+  coffee:
+    description: CoffeeCore Command
+permissions:
+  coffee.admin:
+    description: Gain full access to CoffeeCore
+    default: op
