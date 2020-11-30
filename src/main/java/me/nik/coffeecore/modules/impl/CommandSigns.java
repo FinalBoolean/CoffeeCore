@@ -6,10 +6,10 @@ import me.nik.coffeecore.managers.CommandSignManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.Messenger;
 import me.nik.coffeecore.utils.custom.CommandSign;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -33,7 +33,7 @@ public class CommandSigns extends Module {
 
     @EventHandler
     public void onInteract(final PlayerInteractEvent e) {
-        if (!e.getAction().name().contains("RIGHT") || e.getClickedBlock().getType() != Material.valueOf("SIGN"))
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !e.getClickedBlock().getType().name().contains("SIGN"))
             return;
 
         Player p = e.getPlayer();
@@ -43,16 +43,15 @@ public class CommandSigns extends Module {
             return;
         }
 
-        Block block = e.getClickedBlock();
+        Location block = e.getClickedBlock().getLocation();
 
         for (CommandSign sign : this.commandSigns) {
-            if (sign.getLocation().equals(block.getLocation())) {
+            if (sign.getLocation().equals(block)) {
                 sign.execute(e.getPlayer());
+                profile.addCommandSignCooldown();
                 break;
             }
         }
-
-        profile.addCommandSignCooldown();
     }
 
     @EventHandler
@@ -61,7 +60,8 @@ public class CommandSigns extends Module {
         if (!profile.isCommandSignMode()) return;
 
         CommandSign commandSign = profile.getCommandSign();
-        commandSign.setLocation(e.getPlayer().getLocation());
+        commandSign.setLocation(e.getBlock().getLocation());
+        this.commandSigns.add(commandSign);
         this.manager.addCommandSign(commandSign);
         profile.resetCommandSign();
         profile.setCommandSignMode(false);
