@@ -1,6 +1,7 @@
 package me.nik.coffeecore.commands;
 
 import me.nik.coffeecore.CoffeeCore;
+import me.nik.coffeecore.commands.subcommands.CommandSignCommand;
 import me.nik.coffeecore.commands.subcommands.ReloadCommand;
 import me.nik.coffeecore.commands.subcommands.ScaffoldCommand;
 import me.nik.coffeecore.utils.Messenger;
@@ -24,6 +25,7 @@ public class CommandManager implements TabExecutor {
 
         subCommands.add(new ScaffoldCommand(plugin));
         subCommands.add(new ReloadCommand(plugin));
+        subCommands.add(new CommandSignCommand(plugin));
     }
 
     @Override

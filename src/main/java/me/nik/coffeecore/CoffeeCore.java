@@ -5,6 +5,7 @@ import me.nik.coffeecore.listeners.ProfileListener;
 import me.nik.coffeecore.managers.Config;
 import me.nik.coffeecore.managers.ProfileManager;
 import me.nik.coffeecore.modules.Module;
+import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.tasks.AlwaysDay;
@@ -64,6 +65,7 @@ public final class CoffeeCore extends JavaPlugin {
 
         this.modules.add(new ScaffoldAreas(this));
         this.modules.add(new NoHunger(this));
+        this.modules.add(new CommandSigns(this));
 
         this.modules.forEach(Module::init);
     }
