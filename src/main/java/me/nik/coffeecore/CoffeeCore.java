@@ -8,6 +8,7 @@ import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
+import me.nik.coffeecore.modules.impl.SpawnItems;
 import me.nik.coffeecore.tasks.AlwaysDay;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
@@ -66,6 +67,7 @@ public final class CoffeeCore extends JavaPlugin {
         this.modules.add(new ScaffoldAreas(this));
         this.modules.add(new NoHunger(this));
         this.modules.add(new CommandSigns(this));
+        this.modules.add(new SpawnItems(this));
 
         this.modules.forEach(Module::init);
     }
