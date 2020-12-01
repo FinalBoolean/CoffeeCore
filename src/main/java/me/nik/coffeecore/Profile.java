@@ -2,8 +2,6 @@ package me.nik.coffeecore;
 
 import me.nik.coffeecore.utils.custom.CommandSign;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -68,9 +66,5 @@ public class Profile {
 
     public void resetScaffoldArea() {
         this.scaffoldArea = null;
-    }
-
-    public Player getPlayer() {
-        return Bukkit.getPlayer(this.uuid);
     }
 }
