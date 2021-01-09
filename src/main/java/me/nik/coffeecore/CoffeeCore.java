@@ -1,28 +1,29 @@
 package me.nik.coffeecore;
 
 import me.nik.coffeecore.commands.CommandManager;
-import me.nik.coffeecore.listeners.ProfileListener;
 import me.nik.coffeecore.managers.Config;
-import me.nik.coffeecore.managers.ProfileManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.modules.impl.SpawnItems;
 import me.nik.coffeecore.tasks.AlwaysDay;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public final class CoffeeCore extends JavaPlugin {
 
     private Config config;
 
-    private ProfileManager profileManager;
+    private final Map<UUID, Profile> profiles = new HashMap<>();
 
     private final List<Module> modules = new ArrayList<>();
 
@@ -41,13 +42,8 @@ public final class CoffeeCore extends JavaPlugin {
 
         getCommand("coffee").setExecutor(new CommandManager(this));
 
-        this.profileManager = new ProfileManager();
-
         initModules();
         logger.info("Initialized Modules");
-
-        initListeners();
-        logger.info("Initialized Listeners");
 
         initTasks();
         logger.info("Initialized Tasks");
@@ -55,11 +51,6 @@ public final class CoffeeCore extends JavaPlugin {
 
     private void initTasks() {
         new AlwaysDay().runTaskTimer(this, 1200, 1200);
-    }
-
-    private void initListeners() {
-        final PluginManager pm = this.getServer().getPluginManager();
-        pm.registerEvents(new ProfileListener(this), this);
     }
 
     private void initModules() {
@@ -72,8 +63,8 @@ public final class CoffeeCore extends JavaPlugin {
         this.modules.forEach(Module::init);
     }
 
-    public ProfileManager getProfileManager() {
-        return profileManager;
+    public Profile getProfile(Player player) {
+        return this.profiles.computeIfAbsent(player.getUniqueId(), Profile::new);
     }
 
     @Override

@@ -42,6 +42,7 @@ public class ScaffoldArea {
     }
 
     public void clean() {
+
         int topBlockX = (Math.max(this.one.getBlockX(), this.two.getBlockX()));
         int bottomBlockX = (Math.min(this.one.getBlockX(), this.two.getBlockX()));
 

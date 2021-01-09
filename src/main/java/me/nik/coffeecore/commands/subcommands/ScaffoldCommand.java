@@ -52,7 +52,7 @@ public class ScaffoldCommand extends SubCommand {
     @Override
     protected void perform(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        Profile profile = this.plugin.getProfileManager().getProfile(p);
+        Profile profile = this.plugin.getProfile(p);
 
         if (profile.isScaffoldMode()) {
             profile.setScaffoldMode(false);

@@ -33,11 +33,13 @@ public class CommandSigns extends Module {
 
     @EventHandler
     public void onInteract(final PlayerInteractEvent e) {
+        if (e.getClickedBlock() == null) return;
+
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !e.getClickedBlock().getType().name().contains("SIGN"))
             return;
 
         Player p = e.getPlayer();
-        Profile profile = this.plugin.getProfileManager().getProfile(p);
+        Profile profile = this.plugin.getProfile(p);
 
         Location block = e.getClickedBlock().getLocation();
 
@@ -47,7 +49,7 @@ public class CommandSigns extends Module {
                     p.sendMessage(Messenger.PREFIX + "You must wait before using this Sign again");
                     break;
                 }
-                sign.execute(e.getPlayer());
+                sign.execute(p);
                 profile.addCommandSignCooldown();
                 break;
             }
@@ -56,7 +58,7 @@ public class CommandSigns extends Module {
 
     @EventHandler
     public void onSign(final SignChangeEvent e) {
-        Profile profile = this.plugin.getProfileManager().getProfile(e.getPlayer());
+        Profile profile = this.plugin.getProfile(e.getPlayer());
         if (!profile.isCommandSignMode()) return;
 
         CommandSign commandSign = profile.getCommandSign();

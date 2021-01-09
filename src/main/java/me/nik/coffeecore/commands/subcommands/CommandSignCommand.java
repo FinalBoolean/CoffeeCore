@@ -62,7 +62,7 @@ public class CommandSignCommand extends SubCommand {
         boolean console = Boolean.parseBoolean(args[1]);
 
         Player p = (Player) sender;
-        Profile profile = this.plugin.getProfileManager().getProfile(p);
+        Profile profile = this.plugin.getProfile(p);
 
         if (profile.isCommandSignMode()) {
             profile.setCommandSignMode(false);

@@ -45,7 +45,7 @@ public class ScaffoldAreas extends Module {
 
     @EventHandler
     public void onMark(final PlayerInteractEvent e) {
-        Profile profile = this.plugin.getProfileManager().getProfile(e.getPlayer());
+        Profile profile = this.plugin.getProfile(e.getPlayer());
         if (!profile.isScaffoldMode() || e.getItem() == null || !e.getItem().isSimilar(CoffeeUtils.scaffoldArenaItem())) return;
 
         Player p = e.getPlayer();
@@ -66,9 +66,9 @@ public class ScaffoldAreas extends Module {
         e.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onChat(final AsyncPlayerChatEvent e) {
-        Profile profile = this.plugin.getProfileManager().getProfile(e.getPlayer());
+        Profile profile = this.plugin.getProfile(e.getPlayer());
         if (!profile.isScaffoldMode()) return;
 
         switch (e.getMessage().trim().toLowerCase()) {
