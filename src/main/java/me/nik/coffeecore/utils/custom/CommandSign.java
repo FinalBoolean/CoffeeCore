@@ -23,17 +23,23 @@ public class CommandSign {
 
     public CommandSign(String str) {
         if (str == null) return;
-        String[] data = str.split(",");
+
+        final String[] data = str.split(",");
+
         try {
-            double x = Double.parseDouble(data[0]);
-            double y = Double.parseDouble(data[1]);
-            double z = Double.parseDouble(data[2]);
-            World world = Bukkit.getWorld(data[3]);
+            final double x = Double.parseDouble(data[0]);
+            final double y = Double.parseDouble(data[1]);
+            final double z = Double.parseDouble(data[2]);
+            final World world = Bukkit.getWorld(data[3]);
+
             this.location = new Location(world, x, y, z);
 
-            String command = data[4];
-            boolean console = Boolean.parseBoolean(data[5]);
+            final String command = data[4];
+
+            final boolean console = Boolean.parseBoolean(data[5]);
+
             this.command = command;
+
             this.console = console;
         } catch (NumberFormatException e) {
             e.printStackTrace();

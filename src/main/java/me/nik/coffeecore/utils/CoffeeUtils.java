@@ -12,6 +12,10 @@ public final class CoffeeUtils {
     private CoffeeUtils() {
     }
 
+    /**
+     * Yes this class is full of unnecessary static, Do not do this.
+     */
+
     public static ItemStack scaffoldArenaItem() {
         ItemStack item = new ItemStack(Material.STICK);
         ItemMeta itemMeta = item.getItemMeta();

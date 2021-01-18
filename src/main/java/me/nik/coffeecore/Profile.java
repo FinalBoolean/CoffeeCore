@@ -2,6 +2,8 @@ package me.nik.coffeecore;
 
 import me.nik.coffeecore.utils.custom.CommandSign;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -19,6 +21,10 @@ public class Profile {
 
     public Profile(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public Player getPlayer() {
+        return Bukkit.getPlayer(this.uuid);
     }
 
     public boolean isScaffoldMode() {
