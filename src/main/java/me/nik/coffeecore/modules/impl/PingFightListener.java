@@ -34,7 +34,7 @@ public class PingFightListener extends Module {
 
         final Player p = e.getPlayer();
 
-        if (PlayerUtils.getNmsPing(p) < 250) return;
+        if (PlayerUtils.getNmsPing(p) < 500) return;
 
         e.setCancelled(true);
 

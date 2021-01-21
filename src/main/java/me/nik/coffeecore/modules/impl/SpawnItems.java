@@ -96,7 +96,7 @@ public class SpawnItems extends Module {
 
         final Player p = e.getPlayer();
 
-        if (PlayerUtils.getNmsPing(p) > 250 && !p.hasPermission(Permissions.ADMIN.getPermission())) {
+        if (PlayerUtils.getNmsPing(p) >= 500 && !p.hasPermission(Permissions.ADMIN.getPermission())) {
             p.sendMessage(Messenger.PREFIX + "You can not fight yet, You're lagging like a maniac!");
             return;
         }
