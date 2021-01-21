@@ -1,8 +1,11 @@
 package me.nik.coffeecore.modules.impl;
 
 import me.nik.coffeecore.CoffeeCore;
+import me.nik.coffeecore.Permissions;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
+import me.nik.coffeecore.utils.Messenger;
+import me.nik.coffeecore.utils.PlayerUtils;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -91,16 +94,25 @@ public class SpawnItems extends Module {
         final ItemStack item = e.getItem();
         if (item == null) return;
 
-        Player p = e.getPlayer();
+        final Player p = e.getPlayer();
+
+        if (PlayerUtils.getNmsPing(p) > 250 && !p.hasPermission(Permissions.ADMIN.getPermission())) {
+            p.sendMessage(Messenger.PREFIX + "You can not fight yet, You're lagging like a maniac!");
+            return;
+        }
 
         if (item.equals(this.pvpBotItem)) {
+
             e.setCancelled(true);
+
             p.performCommand("pvpbot");
-        } else if (item.equals(this.informationItem)) {
-            e.setCancelled(true);
+
         } else if (item.equals(this.queueItem)) {
+
             e.setCancelled(true);
+
             p.performCommand("queue");
+
         }
     }
 

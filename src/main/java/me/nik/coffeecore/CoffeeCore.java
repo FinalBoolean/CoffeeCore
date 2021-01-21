@@ -5,6 +5,7 @@ import me.nik.coffeecore.managers.Config;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
+import me.nik.coffeecore.modules.impl.PingFightListener;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.modules.impl.SpawnItems;
 import me.nik.coffeecore.modules.impl.WorldDownloader;
@@ -56,6 +57,7 @@ public final class CoffeeCore extends JavaPlugin {
 
     private void initModules() {
 
+        this.modules.add(new PingFightListener(this));
         this.modules.add(new WorldDownloader(this));
         this.modules.add(new ScaffoldAreas(this));
         this.modules.add(new NoHunger(this));
@@ -78,6 +80,7 @@ public final class CoffeeCore extends JavaPlugin {
         this.config.save();
 
         HandlerList.unregisterAll(this);
+
         this.getServer().getScheduler().cancelTasks(this);
     }
 }
