@@ -3,6 +3,7 @@ package me.nik.coffeecore;
 import me.nik.coffeecore.commands.CommandManager;
 import me.nik.coffeecore.managers.Config;
 import me.nik.coffeecore.modules.Module;
+import me.nik.coffeecore.modules.impl.BreakAreas;
 import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
 import me.nik.coffeecore.modules.impl.PingFightListener;
@@ -57,6 +58,7 @@ public final class CoffeeCore extends JavaPlugin {
 
     private void initModules() {
 
+        this.modules.add(new BreakAreas(this));
         this.modules.add(new PingFightListener(this));
         this.modules.add(new WorldDownloader(this));
         this.modules.add(new ScaffoldAreas(this));

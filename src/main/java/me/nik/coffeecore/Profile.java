@@ -1,5 +1,6 @@
 package me.nik.coffeecore;
 
+import me.nik.coffeecore.utils.custom.BreakArea;
 import me.nik.coffeecore.utils.custom.CommandSign;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
 import org.bukkit.Bukkit;
@@ -11,8 +12,9 @@ public class Profile {
 
     private final UUID uuid;
 
-    private boolean scaffoldMode;
+    private boolean scaffoldMode, breakMode;
     private ScaffoldArea scaffoldArea;
+    private BreakArea breakArea;
 
     private boolean commandSignMode;
     private CommandSign commandSign;
@@ -38,6 +40,19 @@ public class Profile {
     public ScaffoldArea getScaffoldArea() {
         if (this.scaffoldArea == null) this.scaffoldArea = new ScaffoldArea();
         return scaffoldArea;
+    }
+
+    public boolean isBreakMode() {
+        return breakMode;
+    }
+
+    public void setBreakMode(boolean breakMode) {
+        this.breakMode = breakMode;
+    }
+
+    public BreakArea getBreakArea() {
+        if (this.breakArea == null) this.breakArea = new BreakArea();
+        return breakArea;
     }
 
     public boolean isCommandSignMode() {
@@ -72,5 +87,9 @@ public class Profile {
 
     public void resetScaffoldArea() {
         this.scaffoldArea = null;
+    }
+
+    public void resetBreakArea() {
+        this.breakArea = null;
     }
 }

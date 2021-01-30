@@ -2,16 +2,15 @@ package me.nik.coffeecore.modules.impl;
 
 import me.nik.coffeecore.CoffeeCore;
 import me.nik.coffeecore.Profile;
-import me.nik.coffeecore.managers.ScaffoldAreaManager;
+import me.nik.coffeecore.managers.BreakAreaManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
 import me.nik.coffeecore.utils.Messenger;
-import me.nik.coffeecore.utils.custom.ScaffoldArea;
+import me.nik.coffeecore.utils.custom.BreakArea;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -21,15 +20,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScaffoldAreas extends Module {
+public class BreakAreas extends Module {
 
-    private final List<ScaffoldArea> scaffoldAreas = new ArrayList<>();
+    private final List<BreakArea> breakAreas = new ArrayList<>();
 
-    private final ScaffoldAreaManager manager = new ScaffoldAreaManager(this.plugin);
+    private final BreakAreaManager manager = new BreakAreaManager(this.plugin);
 
-    private final ItemStack coffeeBlock = CoffeeUtils.coffeeBlock();
+    private final ItemStack coffeePickaxe = CoffeeUtils.coffeePickaxe();
 
-    public ScaffoldAreas(CoffeeCore plugin) {
+    public BreakAreas(CoffeeCore plugin) {
         super(plugin);
     }
 
@@ -37,17 +36,17 @@ public class ScaffoldAreas extends Module {
     public void init() {
         this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
 
-        this.scaffoldAreas.addAll(this.manager.getScaffoldAreas());
+        this.breakAreas.addAll(this.manager.getBreakAreas());
 
         new BukkitRunnable() {
             public void run() {
-                if (scaffoldAreas.isEmpty()) return;
+                if (breakAreas.isEmpty()) return;
 
-                scaffoldAreas.forEach(ScaffoldArea::clean);
+                breakAreas.forEach(BreakArea::rebuild);
 
-                Messenger.broadcast("Cleaned up the Scaffold Area(s)");
+                Messenger.broadcast("Rebuilt the Break Area(s)");
             }
-        }.runTaskTimer(this.plugin, 20 * 40, 20 * 40);
+        }.runTaskTimer(this.plugin, 20 * 60, 20 * 60);
     }
 
     @EventHandler
@@ -57,35 +56,28 @@ public class ScaffoldAreas extends Module {
 
         boolean inside = false;
 
-        for (ScaffoldArea area : this.scaffoldAreas) {
+        for (BreakArea area : this.breakAreas) {
             if (area.isNearArea(p)) {
                 inside = true;
                 break;
             }
         }
 
-        final boolean hasBlock = p.getInventory().contains(this.coffeeBlock);
+        final boolean hasPickaxe = p.getInventory().contains(this.coffeePickaxe);
 
         if (inside) {
-            if (!hasBlock) {
-                p.getInventory().addItem(this.coffeeBlock);
+            if (!hasPickaxe) {
+                p.getInventory().addItem(this.coffeePickaxe);
             }
-        } else if (hasBlock) {
-            p.getInventory().remove(this.coffeeBlock);
+        } else if (hasPickaxe) {
+            p.getInventory().remove(this.coffeePickaxe);
         }
-    }
-
-    @EventHandler
-    public void onPlace(final BlockPlaceEvent e) {
-        if (!e.getItemInHand().isSimilar(this.coffeeBlock)) return;
-
-        e.getItemInHand().setAmount(64);
     }
 
     @EventHandler
     public void onMark(final PlayerInteractEvent e) {
         Profile profile = this.plugin.getProfile(e.getPlayer());
-        if (!profile.isScaffoldMode() || e.getItem() == null || !e.getItem().isSimilar(CoffeeUtils.scaffoldAreaItem()))
+        if (!profile.isBreakMode() || e.getItem() == null || !e.getItem().isSimilar(CoffeeUtils.breakAreaItem()))
             return;
 
         Player p = e.getPlayer();
@@ -93,12 +85,12 @@ public class ScaffoldAreas extends Module {
         switch (e.getAction()) {
             case LEFT_CLICK_BLOCK:
                 Location one = e.getClickedBlock().getLocation();
-                profile.getScaffoldArea().setOne(one);
+                profile.getBreakArea().setOne(one);
                 p.sendMessage(Messenger.PREFIX + "Set the first location to X: " + one.getX() + " Y: " + one.getY() + " Z: " + one.getZ());
                 break;
             case RIGHT_CLICK_BLOCK:
                 Location two = e.getClickedBlock().getLocation();
-                profile.getScaffoldArea().setTwo(two);
+                profile.getBreakArea().setTwo(two);
                 p.sendMessage(Messenger.PREFIX + "Set the second location to X: " + two.getX() + " Y: " + two.getY() + " Z: " + two.getZ());
                 break;
         }
@@ -109,21 +101,21 @@ public class ScaffoldAreas extends Module {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onChat(final AsyncPlayerChatEvent e) {
         Profile profile = this.plugin.getProfile(e.getPlayer());
-        if (!profile.isScaffoldMode()) return;
+        if (!profile.isBreakMode()) return;
 
         switch (e.getMessage().trim().toLowerCase()) {
             case "done":
-                ScaffoldArea data = profile.getScaffoldArea();
-                this.scaffoldAreas.add(data);
+                BreakArea data = profile.getBreakArea();
+                this.breakAreas.add(data);
                 this.manager.addData(data);
-                profile.resetScaffoldArea();
-                profile.setScaffoldMode(false);
-                e.getPlayer().sendMessage(Messenger.PREFIX + "You have successfully created a scaffold arena");
+                profile.resetBreakArea();
+                profile.setBreakMode(false);
+                e.getPlayer().sendMessage(Messenger.PREFIX + "You have successfully created a break area");
                 break;
             case "cancel":
-                profile.resetScaffoldArea();
-                profile.setScaffoldMode(false);
-                e.getPlayer().sendMessage(Messenger.PREFIX + "You have cancelled the scaffold arena mode");
+                profile.resetBreakArea();
+                profile.setBreakMode(false);
+                e.getPlayer().sendMessage(Messenger.PREFIX + "You have cancelled the break area mode");
                 break;
         }
 

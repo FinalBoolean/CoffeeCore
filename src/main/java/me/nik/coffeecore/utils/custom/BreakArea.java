@@ -1,20 +1,22 @@
 package me.nik.coffeecore.utils.custom;
 
+import me.nik.coffeecore.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-public class ScaffoldArea {
+import java.util.List;
+import java.util.stream.Collectors;
 
+public class BreakArea {
     private Location one, two;
 
-    public ScaffoldArea() {
+    public BreakArea() {
     }
 
-    public ScaffoldArea(String str) {
+    public BreakArea(String str) {
         if (str == null) return;
 
         final String[] data = str.split(",");
@@ -37,6 +39,14 @@ public class ScaffoldArea {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setOne(Location one) {
+        this.one = one;
+    }
+
+    public void setTwo(Location two) {
+        this.two = two;
     }
 
     public boolean isNearArea(Player player) {
@@ -76,15 +86,7 @@ public class ScaffoldArea {
         return false;
     }
 
-    public void setOne(Location one) {
-        this.one = one;
-    }
-
-    public void setTwo(Location two) {
-        this.two = two;
-    }
-
-    public void clean() {
+    public void rebuild() {
 
         final int topBlockX = (Math.max(this.one.getBlockX(), this.two.getBlockX()));
         final int bottomBlockX = (Math.min(this.one.getBlockX(), this.two.getBlockX()));
@@ -97,13 +99,35 @@ public class ScaffoldArea {
 
         final World world = this.one.getWorld();
 
+        Location location = new Location(world, 0, 0, 0);
+
         for (int x = bottomBlockX; x <= topBlockX; x++) {
             for (int z = bottomBlockZ; z <= topBlockZ; z++) {
                 for (int y = bottomBlockY; y <= topBlockY; y++) {
 
-                    Block block = world.getBlockAt(x, y, z);
-                    if (block.getType() == Material.AIR) continue;
-                    block.setType(Material.AIR);
+                    //Better than creating a new location variable every time.
+                    location.setX(x);
+                    location.setY(y);
+                    location.setZ(z);
+
+                    //Yes i know this is heavy and could probably be better, But lazyness is strong!
+                    //This will probably show high on timings, Sorry me!
+                    final List<Player> entitiesList = world.getEntitiesByClass(Player.class)
+                            .stream()
+                            .filter(player ->
+                                    player != null
+                                            && !player.hasMetadata("NPC")
+                                            && player.getLocation().distanceSquared(location) < 1.5)
+                            .collect(Collectors.toList());
+
+                    if (entitiesList.size() > 0) {
+                        for (Player player : entitiesList) {
+                            player.performCommand("spawn");
+                            player.sendMessage(Messenger.PREFIX + "You were near the break area, So we have teleported you back to spawn!");
+                        }
+                    }
+
+                    world.getBlockAt(x, y, z).setType(Material.STONE);
                 }
             }
         }

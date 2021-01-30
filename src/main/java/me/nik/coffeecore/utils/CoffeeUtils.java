@@ -1,6 +1,7 @@
 package me.nik.coffeecore.utils;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,12 +15,54 @@ public final class CoffeeUtils {
 
     /**
      * Yes this class is full of unnecessary static, Do not do this.
+     * I'm lazy.
      */
 
-    public static ItemStack scaffoldArenaItem() {
+    public static ItemStack coffeePickaxe() {
+        ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE);
+        item.addEnchantment(Enchantment.DURABILITY, 3);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName(Messenger.PREFIX + "Coffee Pickaxe");
+        List<String> lore = new ArrayList<>();
+        lore.add("");
+        lore.add(Messenger.format("&7Uhh... Left click to break a block!"));
+        lore.add("");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack coffeeBlock() {
+        ItemStack item = new ItemStack(Material.STONE);
+        item.setAmount(64);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName(Messenger.PREFIX + "Coffee Block");
+        List<String> lore = new ArrayList<>();
+        lore.add("");
+        lore.add(Messenger.format("&7Uhh... Right click to place a block!"));
+        lore.add("");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack scaffoldAreaItem() {
         ItemStack item = new ItemStack(Material.STICK);
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(Messenger.PREFIX + "Arena Tool");
+        itemMeta.setDisplayName(Messenger.PREFIX + "Scaffold Area Tool");
+        List<String> lore = new ArrayList<>();
+        lore.add("");
+        lore.add(Messenger.format("&7Right Click &8~ &7Left Click"));
+        lore.add("");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public static ItemStack breakAreaItem() {
+        ItemStack item = new ItemStack(Material.STICK);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName(Messenger.PREFIX + "Break Area Tool");
         List<String> lore = new ArrayList<>();
         lore.add("");
         lore.add(Messenger.format("&7Right Click &8~ &7Left Click"));

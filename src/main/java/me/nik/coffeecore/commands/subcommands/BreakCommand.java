@@ -11,27 +11,27 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ScaffoldCommand extends SubCommand {
+public class BreakCommand extends SubCommand {
 
     private final CoffeeCore plugin;
 
-    public ScaffoldCommand(CoffeeCore plugin) {
+    public BreakCommand(CoffeeCore plugin) {
         this.plugin = plugin;
     }
 
     @Override
     protected String getName() {
-        return "scaffold";
+        return "break";
     }
 
     @Override
     protected String getDescription() {
-        return "Create a new scaffold area";
+        return "Create a new break area";
     }
 
     @Override
     protected String getSyntax() {
-        return "/coffee scaffold";
+        return "/coffee break";
     }
 
     @Override
@@ -54,14 +54,14 @@ public class ScaffoldCommand extends SubCommand {
         Player p = (Player) sender;
         Profile profile = this.plugin.getProfile(p);
 
-        if (profile.isScaffoldMode()) {
-            profile.setScaffoldMode(false);
-            profile.resetScaffoldArea();
-            sender.sendMessage(Messenger.PREFIX + "You have cancelled the scaffold area mode");
+        if (profile.isBreakMode()) {
+            profile.setBreakMode(false);
+            profile.resetBreakArea();
+            sender.sendMessage(Messenger.PREFIX + "You have cancelled the break area mode");
         } else {
-            profile.setScaffoldMode(true);
-            sender.sendMessage(Messenger.PREFIX + "You have enabled the area scaffold mode, type `Done` in chat once you're finished, `Cancel` to cancel");
-            p.getInventory().addItem(CoffeeUtils.scaffoldAreaItem());
+            profile.setBreakMode(true);
+            sender.sendMessage(Messenger.PREFIX + "You have enabled the area break mode, type `Done` in chat once you're finished, `Cancel` to cancel");
+            p.getInventory().addItem(CoffeeUtils.breakAreaItem());
         }
     }
 
