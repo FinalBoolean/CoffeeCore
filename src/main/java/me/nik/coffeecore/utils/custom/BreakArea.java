@@ -1,14 +1,10 @@
 package me.nik.coffeecore.utils.custom;
 
-import me.nik.coffeecore.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class BreakArea {
     private Location one, two;
@@ -112,19 +108,12 @@ public class BreakArea {
 
                     //Yes i know this is heavy and could probably be better, But lazyness is strong!
                     //This will probably show high on timings, Sorry me!
-                    final List<Player> entitiesList = world.getEntitiesByClass(Player.class)
-                            .stream()
-                            .filter(player ->
+                    if (world.getEntitiesByClass(Player.class)
+                            .stream().anyMatch(player ->
                                     player != null
                                             && !player.hasMetadata("NPC")
-                                            && player.getLocation().distanceSquared(location) < 1.5)
-                            .collect(Collectors.toList());
-
-                    if (entitiesList.size() > 0) {
-                        for (Player player : entitiesList) {
-                            player.performCommand("spawn");
-                            player.sendMessage(Messenger.PREFIX + "You were near the break area, So we have teleported you back to spawn!");
-                        }
+                                            && player.getLocation().distanceSquared(location) < 5)) {
+                        continue;
                     }
 
                     world.getBlockAt(x, y, z).setType(Material.STONE);

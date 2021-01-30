@@ -48,7 +48,7 @@ public class BreakAreas extends Module {
 
                 Messenger.broadcast("Rebuilt the Break Area(s)");
             }
-        }.runTaskTimer(this.plugin, 20 * 60, 20 * 60);
+        }.runTaskTimer(this.plugin, 20 * 10, 20 * 10);
     }
 
     @EventHandler
