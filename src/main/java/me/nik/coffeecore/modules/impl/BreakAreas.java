@@ -9,6 +9,7 @@ import me.nik.coffeecore.utils.Messenger;
 import me.nik.coffeecore.utils.PlayerUtils;
 import me.nik.coffeecore.utils.custom.BreakArea;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -72,6 +73,7 @@ public class BreakAreas extends Module {
             }
         } else if (hasPickaxe) {
             PlayerUtils.getItem(p, this.coffeePickaxe, true);
+            p.getInventory().remove(Material.COBBLESTONE);
         }
     }
 
