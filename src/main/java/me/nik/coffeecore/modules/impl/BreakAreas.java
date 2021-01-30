@@ -6,6 +6,7 @@ import me.nik.coffeecore.managers.BreakAreaManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
 import me.nik.coffeecore.utils.Messenger;
+import me.nik.coffeecore.utils.PlayerUtils;
 import me.nik.coffeecore.utils.custom.BreakArea;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -63,14 +64,14 @@ public class BreakAreas extends Module {
             }
         }
 
-        final boolean hasPickaxe = p.getInventory().contains(this.coffeePickaxe);
+        final boolean hasPickaxe = PlayerUtils.getItem(p, this.coffeePickaxe, false);
 
         if (inside) {
             if (!hasPickaxe) {
                 p.getInventory().addItem(this.coffeePickaxe);
             }
         } else if (hasPickaxe) {
-            p.getInventory().remove(this.coffeePickaxe);
+            PlayerUtils.getItem(p, this.coffeePickaxe, true);
         }
     }
 

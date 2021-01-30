@@ -6,6 +6,7 @@ import me.nik.coffeecore.managers.ScaffoldAreaManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
 import me.nik.coffeecore.utils.Messenger;
+import me.nik.coffeecore.utils.PlayerUtils;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -64,14 +65,14 @@ public class ScaffoldAreas extends Module {
             }
         }
 
-        final boolean hasBlock = p.getInventory().contains(this.coffeeBlock);
+        final boolean hasBlock = PlayerUtils.getItem(p, this.coffeeBlock, false);
 
         if (inside) {
             if (!hasBlock) {
                 p.getInventory().addItem(this.coffeeBlock);
             }
         } else if (hasBlock) {
-            p.getInventory().remove(this.coffeeBlock);
+            PlayerUtils.getItem(p, this.coffeeBlock, true);
         }
     }
 
