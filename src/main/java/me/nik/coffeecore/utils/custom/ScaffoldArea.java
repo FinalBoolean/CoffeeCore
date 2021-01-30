@@ -42,6 +42,8 @@ public class ScaffoldArea {
     public boolean isNearArea(Player player) {
         //This is bad, and could be better.
 
+        if (player.getWorld() != this.one.getWorld()) return false;
+
         final int topBlockX = (Math.max(this.one.getBlockX(), this.two.getBlockX()));
         final int bottomBlockX = (Math.min(this.one.getBlockX(), this.two.getBlockX()));
 
