@@ -54,7 +54,7 @@ public class AntiBot extends Module {
 
                 e.setCancelled(true);
 
-                e.getPlayer().sendMessage(Messenger.PREFIX + "You must wait " + secondsLeft + " after logging in.");
+                e.getPlayer().sendMessage(Messenger.PREFIX + "You must wait " + secondsLeft + " seconds after logging in.");
 
                 return;
             }
