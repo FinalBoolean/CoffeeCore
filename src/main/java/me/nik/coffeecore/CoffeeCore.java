@@ -1,6 +1,7 @@
 package me.nik.coffeecore;
 
 import me.nik.coffeecore.commands.CommandManager;
+import me.nik.coffeecore.listener.AliceVerboseListener;
 import me.nik.coffeecore.managers.Config;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.AntiBot;
@@ -12,8 +13,11 @@ import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.modules.impl.SpawnItems;
 import me.nik.coffeecore.modules.impl.WorldDownloader;
 import me.nik.coffeecore.tasks.AlwaysDay;
+import me.nik.coffeecore.utils.MillisTest;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -34,6 +38,8 @@ public final class CoffeeCore extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        MillisTest test = new MillisTest();
+
         final Logger logger = this.getLogger();
         logger.info("Loading CoffeeCore, Made by Nik with <3");
 
@@ -51,10 +57,23 @@ public final class CoffeeCore extends JavaPlugin {
 
         initTasks();
         logger.info("Initialized Tasks");
+
+        initListeners();
+        logger.info("Initialized Listeners");
+
+        logger.info("CoffeeCore has been loaded in " + test.getMillis() + "ms");
     }
 
     private void initTasks() {
         new AlwaysDay().runTaskTimer(this, 1200, 1200);
+    }
+
+    private void initListeners() {
+
+        final PluginManager pm = Bukkit.getPluginManager();
+
+        pm.registerEvents(new AliceVerboseListener(), this);
+
     }
 
     private void initModules() {
