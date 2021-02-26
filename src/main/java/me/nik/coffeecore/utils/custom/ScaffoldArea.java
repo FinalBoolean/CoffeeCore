@@ -60,7 +60,9 @@ public class ScaffoldArea {
         final Location playerLocation = player.getLocation();
 
         for (int x = bottomBlockX; x <= topBlockX; x++) {
+
             for (int z = bottomBlockZ; z <= topBlockZ; z++) {
+
                 for (int y = bottomBlockY; y <= topBlockY; y++) {
 
                     //Better than creating a new location variable every time.
@@ -100,7 +102,9 @@ public class ScaffoldArea {
         final World world = this.one.getWorld();
 
         for (int x = bottomBlockX; x <= topBlockX; x++) {
+
             for (int z = bottomBlockZ; z <= topBlockZ; z++) {
+
                 for (int y = bottomBlockY; y <= topBlockY; y++) {
 
                     Block block = world.getBlockAt(x, y, z);

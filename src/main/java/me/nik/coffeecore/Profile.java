@@ -3,6 +3,7 @@ package me.nik.coffeecore;
 import me.nik.coffeecore.utils.custom.BreakArea;
 import me.nik.coffeecore.utils.custom.CommandSign;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
+import me.nik.coffeecore.utils.custom.VelocityMob;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -12,9 +13,10 @@ public class Profile {
 
     private final UUID uuid;
 
-    private boolean scaffoldMode, breakMode;
+    private boolean scaffoldMode, breakMode, velocityMobMode;
     private ScaffoldArea scaffoldArea;
     private BreakArea breakArea;
+    private VelocityMob velocityMob;
 
     private boolean commandSignMode;
     private CommandSign commandSign;
@@ -71,6 +73,23 @@ public class Profile {
 
     public void setCommandSign(CommandSign commandSign) {
         this.commandSign = commandSign;
+    }
+
+    public boolean isVelocityMobMode() {
+        return velocityMobMode;
+    }
+
+    public void setVelocityMobMode(boolean velocityMobMode) {
+        this.velocityMobMode = velocityMobMode;
+    }
+
+    public void resetVelocityMob() {
+        this.velocityMob = null;
+    }
+
+    public VelocityMob getVelocityMob() {
+        if (this.velocityMob == null) this.velocityMob = new VelocityMob();
+        return velocityMob;
     }
 
     public void resetCommandSign() {

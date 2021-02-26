@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -32,6 +33,13 @@ public class ScaffoldAreas extends Module {
 
     public ScaffoldAreas(CoffeeCore plugin) {
         super(plugin);
+    }
+
+    @Override
+    public void disInit() {
+        HandlerList.unregisterAll(this);
+
+        this.scaffoldAreas.clear();
     }
 
     @Override
@@ -119,11 +127,13 @@ public class ScaffoldAreas extends Module {
                 this.manager.addData(data);
                 profile.resetScaffoldArea();
                 profile.setScaffoldMode(false);
+                profile.getPlayer().getInventory().remove(CoffeeUtils.scaffoldAreaItem());
                 e.getPlayer().sendMessage(Messenger.PREFIX + "You have successfully created a scaffold arena");
                 break;
             case "cancel":
                 profile.resetScaffoldArea();
                 profile.setScaffoldMode(false);
+                profile.getPlayer().getInventory().remove(CoffeeUtils.scaffoldAreaItem());
                 e.getPlayer().sendMessage(Messenger.PREFIX + "You have cancelled the scaffold arena mode");
                 break;
         }

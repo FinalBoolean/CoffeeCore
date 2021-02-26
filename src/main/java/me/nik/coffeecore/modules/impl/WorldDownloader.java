@@ -24,6 +24,12 @@ public class WorldDownloader extends Module implements PluginMessageListener {
     }
 
     @Override
+    public void disInit() {
+        this.plugin.getServer().getMessenger().unregisterIncomingPluginChannel(this.plugin, WDL_INIT);
+        this.plugin.getServer().getMessenger().unregisterOutgoingPluginChannel(this.plugin, WDL_CONTROL);
+    }
+
+    @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
         if (channel.equals(WDL_INIT) || channel.equals(WDL_CONTROL)) {
 

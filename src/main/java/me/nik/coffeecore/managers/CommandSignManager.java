@@ -4,7 +4,7 @@ import me.nik.coffeecore.CoffeeCore;
 import me.nik.coffeecore.utils.FileBuilder;
 import me.nik.coffeecore.utils.custom.CommandSign;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,7 +25,7 @@ public class CommandSignManager {
     }
 
     public List<CommandSign> getCommandSigns() {
-        List<CommandSign> data = new ArrayList<>();
+        List<CommandSign> data = new LinkedList<>();
 
         if (this.fb.getConfiguration().getConfigurationSection("locations.command_signs") == null) return data;
 

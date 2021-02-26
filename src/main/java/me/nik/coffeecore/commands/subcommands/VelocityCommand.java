@@ -11,27 +11,26 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class BreakCommand extends SubCommand {
-
+public class VelocityCommand extends SubCommand {
     private final CoffeeCore plugin;
 
-    public BreakCommand(CoffeeCore plugin) {
+    public VelocityCommand(CoffeeCore plugin) {
         this.plugin = plugin;
     }
 
     @Override
     protected String getName() {
-        return "break";
+        return "velocity";
     }
 
     @Override
     protected String getDescription() {
-        return "Create a new break area";
+        return "Create a new velocity mob";
     }
 
     @Override
     protected String getSyntax() {
-        return "/coffee break";
+        return "/coffee velocity";
     }
 
     @Override
@@ -54,15 +53,15 @@ public class BreakCommand extends SubCommand {
         Player p = (Player) sender;
         Profile profile = this.plugin.getProfile(p);
 
-        if (profile.isBreakMode()) {
-            profile.setBreakMode(false);
-            profile.resetBreakArea();
-            p.getInventory().remove(CoffeeUtils.breakAreaItem());
-            sender.sendMessage(Messenger.PREFIX + "You have cancelled the break area mode");
+        if (profile.isVelocityMobMode()) {
+            profile.setVelocityMobMode(false);
+            profile.resetVelocityMob();
+            profile.getPlayer().getInventory().remove(CoffeeUtils.velocityMobItem());
+            sender.sendMessage(Messenger.PREFIX + "You have cancelled the velocity mob mode");
         } else {
-            profile.setBreakMode(true);
-            sender.sendMessage(Messenger.PREFIX + "You have enabled the area break mode, type `Done` in chat once you're finished, `Cancel` to cancel");
-            p.getInventory().addItem(CoffeeUtils.breakAreaItem());
+            profile.setVelocityMobMode(true);
+            sender.sendMessage(Messenger.PREFIX + "You have enabled the velocity mob mode, type `Done` in chat once you're finished, `Cancel` to cancel");
+            p.getInventory().addItem(CoffeeUtils.velocityMobItem());
         }
     }
 

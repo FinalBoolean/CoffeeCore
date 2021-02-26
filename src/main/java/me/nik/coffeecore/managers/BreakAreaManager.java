@@ -4,7 +4,7 @@ import me.nik.coffeecore.CoffeeCore;
 import me.nik.coffeecore.utils.FileBuilder;
 import me.nik.coffeecore.utils.custom.BreakArea;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,7 +25,7 @@ public class BreakAreaManager {
     }
 
     public List<BreakArea> getBreakAreas() {
-        List<BreakArea> data = new ArrayList<>();
+        List<BreakArea> data = new LinkedList<>();
 
         if (this.fb.getConfiguration().getConfigurationSection("locations.break_areas") == null) return data;
 

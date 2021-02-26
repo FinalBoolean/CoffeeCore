@@ -11,6 +11,7 @@ import me.nik.coffeecore.modules.impl.NoHunger;
 import me.nik.coffeecore.modules.impl.PingFightListener;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.modules.impl.SpawnItems;
+import me.nik.coffeecore.modules.impl.VelocityMobs;
 import me.nik.coffeecore.modules.impl.WorldDownloader;
 import me.nik.coffeecore.tasks.AlwaysDay;
 import me.nik.coffeecore.utils.MillisTest;
@@ -86,6 +87,7 @@ public final class CoffeeCore extends JavaPlugin {
         this.modules.add(new NoHunger(this));
         this.modules.add(new CommandSigns(this));
         this.modules.add(new SpawnItems(this));
+        this.modules.add(new VelocityMobs(this));
 
         this.modules.forEach(Module::init);
     }
@@ -96,6 +98,8 @@ public final class CoffeeCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
+        this.modules.forEach(Module::disInit);
 
         this.modules.clear();
 

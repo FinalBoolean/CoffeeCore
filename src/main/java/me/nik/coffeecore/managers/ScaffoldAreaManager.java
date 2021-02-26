@@ -4,7 +4,7 @@ import me.nik.coffeecore.CoffeeCore;
 import me.nik.coffeecore.utils.FileBuilder;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,7 +25,7 @@ public class ScaffoldAreaManager {
     }
 
     public List<ScaffoldArea> getScaffoldAreas() {
-        List<ScaffoldArea> data = new ArrayList<>();
+        List<ScaffoldArea> data = new LinkedList<>();
 
         if (this.fb.getConfiguration().getConfigurationSection("locations.scaffold_areas") == null) return data;
 

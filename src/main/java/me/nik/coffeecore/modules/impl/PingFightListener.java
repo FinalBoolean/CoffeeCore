@@ -8,6 +8,7 @@ import me.nik.coffeecore.utils.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import java.util.Arrays;
@@ -20,6 +21,11 @@ public class PingFightListener extends Module {
     @Override
     public void init() {
         this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+    }
+
+    @Override
+    public void disInit() {
+        HandlerList.unregisterAll(this);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

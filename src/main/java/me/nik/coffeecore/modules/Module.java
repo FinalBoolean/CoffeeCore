@@ -12,4 +12,6 @@ public abstract class Module implements Listener {
     }
 
     public abstract void init();
+
+    public abstract void disInit();
 }

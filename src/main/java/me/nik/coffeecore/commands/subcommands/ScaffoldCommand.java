@@ -57,6 +57,7 @@ public class ScaffoldCommand extends SubCommand {
         if (profile.isScaffoldMode()) {
             profile.setScaffoldMode(false);
             profile.resetScaffoldArea();
+            profile.getPlayer().getInventory().remove(CoffeeUtils.scaffoldAreaItem());
             sender.sendMessage(Messenger.PREFIX + "You have cancelled the scaffold area mode");
         } else {
             profile.setScaffoldMode(true);

@@ -5,6 +5,7 @@ import me.nik.coffeecore.commands.subcommands.BreakCommand;
 import me.nik.coffeecore.commands.subcommands.CommandSignCommand;
 import me.nik.coffeecore.commands.subcommands.ReloadCommand;
 import me.nik.coffeecore.commands.subcommands.ScaffoldCommand;
+import me.nik.coffeecore.commands.subcommands.VelocityCommand;
 import me.nik.coffeecore.utils.Messenger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -28,6 +29,7 @@ public class CommandManager implements TabExecutor {
         subCommands.add(new ScaffoldCommand(plugin));
         subCommands.add(new ReloadCommand(plugin));
         subCommands.add(new CommandSignCommand(plugin));
+        subCommands.add(new VelocityCommand(plugin));
     }
 
     @Override

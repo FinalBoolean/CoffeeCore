@@ -9,6 +9,7 @@ import me.nik.coffeecore.utils.custom.CommandSign;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -29,6 +30,13 @@ public class CommandSigns extends Module {
         this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
 
         this.commandSigns.addAll(this.manager.getCommandSigns());
+    }
+
+    @Override
+    public void disInit() {
+        HandlerList.unregisterAll(this);
+
+        this.commandSigns.clear();
     }
 
     @EventHandler

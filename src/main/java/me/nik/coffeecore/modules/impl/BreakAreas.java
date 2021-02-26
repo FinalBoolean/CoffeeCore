@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -32,6 +33,13 @@ public class BreakAreas extends Module {
 
     public BreakAreas(CoffeeCore plugin) {
         super(plugin);
+    }
+
+    @Override
+    public void disInit() {
+        HandlerList.unregisterAll(this);
+
+        this.breakAreas.clear();
     }
 
     @Override
@@ -113,11 +121,13 @@ public class BreakAreas extends Module {
                 this.manager.addData(data);
                 profile.resetBreakArea();
                 profile.setBreakMode(false);
+                profile.getPlayer().getInventory().remove(CoffeeUtils.breakAreaItem());
                 e.getPlayer().sendMessage(Messenger.PREFIX + "You have successfully created a break area");
                 break;
             case "cancel":
                 profile.resetBreakArea();
                 profile.setBreakMode(false);
+                profile.getPlayer().getInventory().remove(CoffeeUtils.breakAreaItem());
                 e.getPlayer().sendMessage(Messenger.PREFIX + "You have cancelled the break area mode");
                 break;
         }

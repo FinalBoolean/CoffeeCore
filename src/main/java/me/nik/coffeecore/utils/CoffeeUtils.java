@@ -46,6 +46,19 @@ public final class CoffeeUtils {
         return item;
     }
 
+    public static ItemStack velocityMobItem() {
+        ItemStack item = new ItemStack(Material.STICK);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName(Messenger.PREFIX + "Velocity Mob Tool");
+        List<String> lore = new ArrayList<>();
+        lore.add("");
+        lore.add(Messenger.format("&7Left Click"));
+        lore.add("");
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
     public static ItemStack scaffoldAreaItem() {
         ItemStack item = new ItemStack(Material.STICK);
         ItemMeta itemMeta = item.getItemMeta();

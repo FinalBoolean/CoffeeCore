@@ -9,6 +9,7 @@ import me.nik.coffeecore.utils.PlayerUtils;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -40,6 +41,11 @@ public class SpawnItems extends Module {
         this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
 
         this.spawn = this.plugin.getServer().getWorld("world");
+    }
+
+    @Override
+    public void disInit() {
+        HandlerList.unregisterAll(this);
     }
 
     @EventHandler
