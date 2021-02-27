@@ -46,7 +46,7 @@ public class VelocityMobs extends Module {
                     mob.getEntity().teleport(mob.getLocation());
                 }
             }
-        }.runTaskTimer(this.plugin, 600, 600);
+        }.runTaskTimer(this.plugin, 600, 250);
     }
 
     @Override
