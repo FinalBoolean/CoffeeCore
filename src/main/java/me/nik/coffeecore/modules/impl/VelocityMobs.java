@@ -44,7 +44,7 @@ public class VelocityMobs extends Module {
             public void run() {
                 velocityMobs.forEach(VelocityMob::check);
             }
-        }.runTaskTimer(this.plugin, 600, 250);
+        }.runTaskTimer(this.plugin, 250, 250);
     }
 
     @Override
