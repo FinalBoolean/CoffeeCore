@@ -42,6 +42,16 @@ public class VelocityMob {
     public VelocityMob() {
     }
 
+    public void check() {
+
+        if (this.entity.isDead() || this.entity == null) {
+            spawn();
+            return;
+        }
+
+        this.entity.teleport(this.location);
+    }
+
     public Entity getEntity() {
         return entity;
     }

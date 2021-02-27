@@ -42,9 +42,7 @@ public class VelocityMobs extends Module {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (VelocityMob mob : velocityMobs) {
-                    mob.getEntity().teleport(mob.getLocation());
-                }
+                velocityMobs.forEach(VelocityMob::check);
             }
         }.runTaskTimer(this.plugin, 600, 250);
     }
