@@ -8,7 +8,6 @@ import me.nik.coffeecore.modules.impl.AntiBot;
 import me.nik.coffeecore.modules.impl.BreakAreas;
 import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
-import me.nik.coffeecore.modules.impl.PingFightListener;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
 import me.nik.coffeecore.modules.impl.SpawnItems;
 import me.nik.coffeecore.modules.impl.VelocityMobs;
@@ -81,7 +80,6 @@ public final class CoffeeCore extends JavaPlugin {
 
         this.modules.add(new AntiBot(this));
         this.modules.add(new BreakAreas(this));
-        this.modules.add(new PingFightListener(this));
         this.modules.add(new WorldDownloader(this));
         this.modules.add(new ScaffoldAreas(this));
         this.modules.add(new NoHunger(this));
