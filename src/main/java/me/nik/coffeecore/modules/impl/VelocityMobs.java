@@ -9,6 +9,7 @@ import me.nik.coffeecore.utils.Messenger;
 import me.nik.coffeecore.utils.custom.VelocityMob;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -59,7 +60,9 @@ public class VelocityMobs extends Module {
     @EventHandler
     public void onDamaged(final EntityDamageByEntityEvent e) {
 
-        final int targetId = e.getEntity().getEntityId();
+        final Entity entity = e.getEntity();
+
+        final int targetId = entity.getEntityId();
 
         boolean damagerVelocityMob = true;
 
@@ -72,8 +75,15 @@ public class VelocityMobs extends Module {
         }
 
         if (damagerVelocityMob) {
+
             e.setDamage(0);
-        } else e.setCancelled(true);
+
+        } else {
+
+            if (entity instanceof Player) return;
+
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler

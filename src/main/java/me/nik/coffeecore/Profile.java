@@ -2,6 +2,7 @@ package me.nik.coffeecore;
 
 import me.nik.coffeecore.utils.custom.BreakArea;
 import me.nik.coffeecore.utils.custom.CommandSign;
+import me.nik.coffeecore.utils.custom.PacketBucket;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
 import me.nik.coffeecore.utils.custom.VelocityMob;
 import org.bukkit.Bukkit;
@@ -12,6 +13,8 @@ import java.util.UUID;
 public class Profile {
 
     private final UUID uuid;
+
+    private final PacketBucket packetBucket = new PacketBucket();
 
     private boolean scaffoldMode, breakMode, velocityMobMode;
     private ScaffoldArea scaffoldArea;
@@ -110,5 +113,9 @@ public class Profile {
 
     public void resetBreakArea() {
         this.breakArea = null;
+    }
+
+    public PacketBucket getPacketBucket() {
+        return packetBucket;
     }
 }
