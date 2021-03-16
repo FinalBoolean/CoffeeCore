@@ -9,7 +9,7 @@ import me.nik.coffeecore.modules.impl.BreakAreas;
 import me.nik.coffeecore.modules.impl.CommandSigns;
 import me.nik.coffeecore.modules.impl.NoHunger;
 import me.nik.coffeecore.modules.impl.ScaffoldAreas;
-import me.nik.coffeecore.modules.impl.SpawnItems;
+import me.nik.coffeecore.modules.impl.Spawn;
 import me.nik.coffeecore.modules.impl.VelocityMobs;
 import me.nik.coffeecore.modules.impl.WorldDownloader;
 import me.nik.coffeecore.modules.impl.anticrash.AntiCrash;
@@ -93,7 +93,7 @@ public final class CoffeeCore extends JavaPlugin {
         this.modules.add(new ScaffoldAreas(this));
         this.modules.add(new NoHunger(this));
         this.modules.add(new CommandSigns(this));
-        this.modules.add(new SpawnItems(this));
+        this.modules.add(new Spawn(this));
         this.modules.add(new VelocityMobs(this));
 
         this.modules.forEach(Module::init);

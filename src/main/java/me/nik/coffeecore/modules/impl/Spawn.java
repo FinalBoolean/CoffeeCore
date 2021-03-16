@@ -1,15 +1,13 @@
 package me.nik.coffeecore.modules.impl;
 
 import me.nik.coffeecore.CoffeeCore;
-import me.nik.coffeecore.Permissions;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
-import me.nik.coffeecore.utils.Messenger;
-import me.nik.coffeecore.utils.PlayerUtils;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -21,14 +19,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class SpawnItems extends Module {
+public class Spawn extends Module {
 
     private final ItemStack pvpBotItem;
     private final ItemStack informationItem;
     private final ItemStack queueItem;
     private World spawn;
 
-    public SpawnItems(CoffeeCore plugin) {
+    public Spawn(CoffeeCore plugin) {
         super(plugin);
 
         this.pvpBotItem = CoffeeUtils.pvpBotItem();
@@ -56,6 +54,13 @@ public class SpawnItems extends Module {
     }
 
     @EventHandler
+    public void onDamage(final EntityDamageEvent e) {
+        if (!(e.getEntity() instanceof Player) || e.getEntity().getWorld() != this.spawn) return;
+
+        e.setDamage(0);
+    }
+
+    @EventHandler
     public void onQuit(final PlayerQuitEvent e) {
         removeItems(e.getPlayer());
     }
@@ -72,6 +77,13 @@ public class SpawnItems extends Module {
         if (e.getEntity().getWorld() != this.spawn) return;
 
         e.getDrops().clear();
+    }
+
+    @EventHandler
+    public void onItemDrop(final PlayerDropItemEvent e) {
+        if (e.getPlayer().getWorld() != this.spawn) return;
+
+        e.setCancelled(true);
     }
 
     @EventHandler
@@ -101,11 +113,6 @@ public class SpawnItems extends Module {
         if (item == null) return;
 
         final Player p = e.getPlayer();
-
-        if (PlayerUtils.getNmsPing(p) >= 500 && !p.hasPermission(Permissions.ADMIN.getPermission())) {
-            p.sendMessage(Messenger.PREFIX + "You can not fight yet, You're lagging like a maniac!");
-            return;
-        }
 
         if (item.equals(this.pvpBotItem)) {
 
