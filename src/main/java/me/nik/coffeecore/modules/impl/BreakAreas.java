@@ -7,6 +7,7 @@ import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
 import me.nik.coffeecore.utils.Messenger;
 import me.nik.coffeecore.utils.PlayerUtils;
+import me.nik.coffeecore.utils.TaskUtils;
 import me.nik.coffeecore.utils.custom.BreakArea;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,7 +19,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +48,15 @@ public class BreakAreas extends Module {
 
         this.breakAreas.addAll(this.manager.getBreakAreas());
 
-        new BukkitRunnable() {
-            public void run() {
-                if (breakAreas.isEmpty()) return;
+        TaskUtils.taskTimer(() -> {
 
-                breakAreas.forEach(BreakArea::rebuild);
+            if (this.breakAreas.isEmpty()) return;
 
-                Messenger.broadcast("Rebuilt the Break Area(s)");
-            }
-        }.runTaskTimer(this.plugin, 20 * 120, 20 * 120);
+            this.breakAreas.forEach(BreakArea::rebuild);
+
+            Messenger.broadcast("Rebuilt the Break Area(s)");
+
+        }, 20 * 140, 20 * 140);
     }
 
     @EventHandler

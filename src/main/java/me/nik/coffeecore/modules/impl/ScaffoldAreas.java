@@ -7,6 +7,7 @@ import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
 import me.nik.coffeecore.utils.Messenger;
 import me.nik.coffeecore.utils.PlayerUtils;
+import me.nik.coffeecore.utils.TaskUtils;
 import me.nik.coffeecore.utils.custom.ScaffoldArea;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -18,7 +19,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +48,15 @@ public class ScaffoldAreas extends Module {
 
         this.scaffoldAreas.addAll(this.manager.getScaffoldAreas());
 
-        new BukkitRunnable() {
-            public void run() {
-                if (scaffoldAreas.isEmpty()) return;
+        TaskUtils.taskTimer(() -> {
 
-                scaffoldAreas.forEach(ScaffoldArea::clean);
+            if (this.scaffoldAreas.isEmpty()) return;
 
-                Messenger.broadcast("Cleaned up the Scaffold Area(s)");
-            }
-        }.runTaskTimer(this.plugin, 20 * 40, 20 * 40);
+            this.scaffoldAreas.forEach(ScaffoldArea::clean);
+
+            Messenger.broadcast("Cleaned up the Scaffold Area(s)");
+
+        }, 20 * 80, 20 * 80);
     }
 
     @EventHandler

@@ -108,7 +108,9 @@ public class ScaffoldArea {
                 for (int y = bottomBlockY; y <= topBlockY; y++) {
 
                     Block block = world.getBlockAt(x, y, z);
+
                     if (block.getType() == Material.AIR) continue;
+
                     block.setType(Material.AIR);
                 }
             }

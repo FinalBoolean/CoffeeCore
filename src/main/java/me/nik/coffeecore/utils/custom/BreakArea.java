@@ -100,7 +100,9 @@ public class BreakArea {
         Location location = new Location(world, 0, 0, 0);
 
         for (int x = bottomBlockX; x <= topBlockX; x++) {
+
             for (int z = bottomBlockZ; z <= topBlockZ; z++) {
+
                 for (int y = bottomBlockY; y <= topBlockY; y++) {
 
                     //Better than creating a new location variable every time.

@@ -6,6 +6,7 @@ import me.nik.coffeecore.managers.VelocityMobManager;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.utils.CoffeeUtils;
 import me.nik.coffeecore.utils.Messenger;
+import me.nik.coffeecore.utils.TaskUtils;
 import me.nik.coffeecore.utils.custom.VelocityMob;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -18,7 +19,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +40,7 @@ public class VelocityMobs extends Module {
         this.velocityMobs.forEach(VelocityMob::spawn);
 
         //Just to make sure, i know i could have done it better using NMS but 1 im lazy and 2 im lazy
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                velocityMobs.forEach(VelocityMob::check);
-            }
-        }.runTaskTimer(this.plugin, 350, 350);
+        TaskUtils.taskTimer(() -> this.velocityMobs.forEach(VelocityMob::check), 350, 350);
     }
 
     @Override
