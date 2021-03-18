@@ -44,5 +44,6 @@ public class Config {
     }
 
     public void addDefaults() {
+        get().addDefault("discord_url", "");
     }
 }

@@ -8,6 +8,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import me.nik.coffeecore.CoffeeCore;
+import me.nik.coffeecore.managers.Discord;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.anticrash.checks.CrashCheck;
 import me.nik.coffeecore.modules.impl.anticrash.checks.impl.Limit;
@@ -63,6 +64,8 @@ public class AntiCrash extends Module {
             public void onPacketReceiving(PacketEvent e) {
                 if (e.isPlayerTemporary() || e.getPlayer() == null) return;
 
+                final Player p = e.getPlayer();
+
                 //This is much faster than any loop, Also less bytecode
 
                 final int checkSize = crashChecks.length;
@@ -73,7 +76,9 @@ public class AntiCrash extends Module {
 
                     e.setCancelled(true);
 
-                    kick(e.getPlayer());
+                    Discord.sendCrashAlert(p);
+
+                    kick(p);
                 }
             }
         });

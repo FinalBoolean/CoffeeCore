@@ -54,6 +54,10 @@ public final class CoffeeCore extends JavaPlugin {
 
     }
 
+    public Config getConfiguration() {
+        return config;
+    }
+
     @Override
     public void onEnable() {
         instance = this;
