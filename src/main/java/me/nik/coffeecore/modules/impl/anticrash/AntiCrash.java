@@ -11,6 +11,7 @@ import me.nik.coffeecore.CoffeeCore;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.anticrash.checks.CrashCheck;
 import me.nik.coffeecore.modules.impl.anticrash.checks.impl.Limit;
+import me.nik.coffeecore.modules.impl.anticrash.checks.impl.Payload;
 import me.nik.coffeecore.modules.impl.anticrash.checks.impl.Pos;
 import me.nik.coffeecore.utils.Messenger;
 import me.nik.coffeecore.wrappers.WrapperPlayServerKickDisconnect;
@@ -36,6 +37,7 @@ public class AntiCrash extends Module {
 
     private final CrashCheck[] crashChecks = {
             new Pos(),
+            new Payload(),
             new Limit()
     };
 

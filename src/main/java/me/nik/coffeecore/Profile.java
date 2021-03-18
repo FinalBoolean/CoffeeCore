@@ -26,6 +26,29 @@ public class Profile {
 
     private long commandSignCooldown;
 
+    private long lastCustomPayload;
+    private float customPayloadBuffer;
+
+    public long getLastCustomPayload() {
+        return System.currentTimeMillis() - this.lastCustomPayload;
+    }
+
+    public void updateLastCustomPayload() {
+        this.lastCustomPayload = System.currentTimeMillis();
+    }
+
+    public float increaseCustomPayloadBuffer(float buffer) {
+        return this.customPayloadBuffer = Math.min(10000F, this.customPayloadBuffer + buffer);
+    }
+
+    public float getCustomPayloadBuffer() {
+        return this.customPayloadBuffer;
+    }
+
+    public void resetCustomPayloadBuffer() {
+        this.customPayloadBuffer = 0F;
+    }
+
     public Profile(UUID uuid) {
         this.uuid = uuid;
     }
