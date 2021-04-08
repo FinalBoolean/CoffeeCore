@@ -4,9 +4,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.InvocationTargetException;
+
 public final class PlayerUtils {
 
     private PlayerUtils() {
+    }
+
+    public static int getNmsPing(final Player player) {
+        if (player == null) return 0;
+
+        try {
+            final Object entityPlayer = ReflectionUtils.getMethod(player.getClass(), "getHandle").invoke(player);
+            return (int) ReflectionUtils.getField(entityPlayer.getClass(), "ping").get(entityPlayer);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            return 1;
+        }
     }
 
     public static boolean getItem(final Player player, final ItemStack itemStack, boolean remove) {

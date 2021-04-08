@@ -14,7 +14,9 @@ import me.nik.coffeecore.modules.impl.VelocityMobs;
 import me.nik.coffeecore.modules.impl.WorldDownloader;
 import me.nik.coffeecore.modules.impl.anticrash.AntiCrash;
 import me.nik.coffeecore.tasks.AlwaysDay;
+import me.nik.coffeecore.tasks.LatencyFucker;
 import me.nik.coffeecore.utils.MillisTest;
+import me.nik.coffeecore.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -43,7 +45,10 @@ public final class CoffeeCore extends JavaPlugin {
     }
 
     private void initTasks() {
-        new AlwaysDay().runTaskTimer(this, 1200, 1200);
+
+        new AlwaysDay().runTaskTimerAsynchronously(this, 1200, 1200);
+
+        new LatencyFucker().runTaskTimerAsynchronously(this, 600, 600);
     }
 
     private void initListeners() {
@@ -116,6 +121,8 @@ public final class CoffeeCore extends JavaPlugin {
 
         this.config.reload();
         this.config.save();
+
+        ReflectionUtils.clear();
 
         HandlerList.unregisterAll(this);
 
