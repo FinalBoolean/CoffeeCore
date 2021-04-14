@@ -1,7 +1,6 @@
 package me.nik.coffeecore;
 
 import me.nik.coffeecore.commands.CommandManager;
-import me.nik.coffeecore.listener.AliceAlertsListener;
 import me.nik.coffeecore.managers.Config;
 import me.nik.coffeecore.modules.Module;
 import me.nik.coffeecore.modules.impl.AntiBot;
@@ -55,8 +54,7 @@ public final class CoffeeCore extends JavaPlugin {
 
         final PluginManager pm = Bukkit.getPluginManager();
 
-        pm.registerEvents(new AliceAlertsListener(), this);
-
+        //Empty for now
     }
 
     public Config getConfiguration() {
